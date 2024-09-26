@@ -51,6 +51,7 @@
                     {{ __('Log in') }}
                 </x-button>
             </div>
+            <button type="button" class="btn btn-primary">Primary</button>
         </form>
     </x-auth-card>
 </x-guest-layout>
