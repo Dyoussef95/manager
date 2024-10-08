@@ -82,22 +82,20 @@
         <link href="https://getbootstrap.com/docs/5.3/examples/headers/headers.css" rel="stylesheet">
     </x-slot>
     <x-slot name="scripts">
- 
         
     </x-slot>
     <x-slot name="header">
-     
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
           <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
         </a>
+        
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="{{route('dashboard')}}" class="nav-link px-2 link-body-emphasis">Inicio</a></li>
 
-       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-       <li><a href="{{route('dashboard')}}" class="nav-link px-2 link-body-emphasis">Inicio</a></li>
-
-       @if (Auth::user()->name=='admin')
+        @if (Auth::user()->name=='admin')
     <!-- The current user can update the post... -->
-    <li><a href="{{route('users')}}" class="nav-link px-2 link-body-emphasis">Colaboradores</a></li>
+       <li><a href="{{route('users')}}" class="nav-link px-2 link-body-emphasis">Colaboradores</a></li>
        <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle link-body-emphasis" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Campos de usuario
@@ -110,25 +108,27 @@
           </ul>
         </li>
         @endif 
-        <!-- 
+            <!-- 
           <li><a href="#" class="nav-link px-2 link-secondary">Overview</a></li>
           <li><a href="#" class="nav-link px-2 link-body-emphasis">Inventory</a></li>
           <li><a href="#" class="nav-link px-2 link-body-emphasis">Customers</a></li>
           <li><a href="#" class="nav-link px-2 link-body-emphasis">Products</a></li>
-          -->
-        </ul> 
+            -->
+        </ul>
+      
 
-        <!--
+        <!-- 
         <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
           <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
         </form>
         -->
+
         <div class="dropdown text-end">
           <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="{{asset('img/Sample_User_Icon.png')}}" alt="mdo" width="32" height="32" class="rounded-circle">
           </a>
           <ul class="dropdown-menu text-small">
-            <!--
+            <!-- 
             <li><a class="dropdown-item" href="#">New project...</a></li>
             <li><a class="dropdown-item" href="#">Settings</a></li>
             <li><a class="dropdown-item" href="#">Profile</a></li>
@@ -139,9 +139,54 @@
         </div>
         </div>
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Inicio') }}
+            {{ __('Colaboradores') }}
         </h2>
     </x-slot>
 
-    <a class="btn btn-primary py-2" href="{{ route('moodleusers.index')}}"> Ver usuarios</a>
+    <a class="btn btn-warning py-2" href="{{ route('users')}}"> Volver atras </a>
+    <form action="{{ route('users.store') }}" method="POST" role="form" id="form">
+            <legend>Crear nuevo colaborador </legend>
+
+            @csrf
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <div class="form-group">
+                <label for="">Nombre:</label>
+            <input type="text" name="name" 
+            class="form-control" id="" placeholder="Ingrese el nombre" required>
+            </div>
+
+            <div class="form-group">
+                <label for="">Nueva contraseña:</label>
+            <input type="password" name="password"
+            class="form-control" id="" placeholder="Ingrese la contraseña" required>
+            </div>
+
+            <div class="form-group">
+                <label for="">Email:</label>
+            <input type="text" name="email" 
+            class="form-control" id="" placeholder="Ingrese el email" required>
+            </div>
+
+
+            <br>
+            <a type="button" class="btn btn-danger" href="{{ route('users') }}">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Agregar</button>
+
+    </form>
+    
+    
 </x-app-layout>
+
+
+
+

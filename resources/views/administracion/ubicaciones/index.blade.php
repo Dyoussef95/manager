@@ -82,20 +82,18 @@
         <link href="https://getbootstrap.com/docs/5.3/examples/headers/headers.css" rel="stylesheet">
     </x-slot>
     <x-slot name="scripts">
- 
         
     </x-slot>
     <x-slot name="header">
-     
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
           <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
         </a>
 
-       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-       <li><a href="{{route('dashboard')}}" class="nav-link px-2 link-body-emphasis">Inicio</a></li>
-
-       @if (Auth::user()->name=='admin')
+        
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="{{route('dashboard')}}" class="nav-link px-2 link-body-emphasis">Inicio</a></li>
+        @if (Auth::user()->name=='admin')
     <!-- The current user can update the post... -->
     <li><a href="{{route('users')}}" class="nav-link px-2 link-body-emphasis">Colaboradores</a></li>
        <li class="nav-item dropdown">
@@ -110,25 +108,30 @@
           </ul>
         </li>
         @endif 
-        <!-- 
+          <!-- 
           <li><a href="#" class="nav-link px-2 link-secondary">Overview</a></li>
           <li><a href="#" class="nav-link px-2 link-body-emphasis">Inventory</a></li>
           <li><a href="#" class="nav-link px-2 link-body-emphasis">Customers</a></li>
           <li><a href="#" class="nav-link px-2 link-body-emphasis">Products</a></li>
           -->
-        </ul> 
+        </ul>
+        
 
-        <!--
+       
         <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+           <!-- 
           <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+      -->
         </form>
-        -->
+        
+
         <div class="dropdown text-end">
           <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="{{asset('img/Sample_User_Icon.png')}}" alt="mdo" width="32" height="32" class="rounded-circle">
           </a>
           <ul class="dropdown-menu text-small">
-            <!--
+            
+            <!-- 
             <li><a class="dropdown-item" href="#">New project...</a></li>
             <li><a class="dropdown-item" href="#">Settings</a></li>
             <li><a class="dropdown-item" href="#">Profile</a></li>
@@ -139,9 +142,45 @@
         </div>
         </div>
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Inicio') }}
+            {{ __('Ubicaciones físicas') }}
         </h2>
     </x-slot>
 
-    <a class="btn btn-primary py-2" href="{{ route('moodleusers.index')}}"> Ver usuarios</a>
+    <a class="btn btn-primary py-2" href="{{ route('ubicaciones.create')}}"> Dar de alta nueva ubicación</a>
+
+    <div class="table-responsive small">
+        <table class="table table-striped table-sm" id="myTable">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Acciones</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+          @forelse ($ubicaciones as $ubicacion)
+            <tr>
+              <td>{{$loop->iteration}}</td>
+              <td>{{$ubicacion->name}}</td>
+              <td>
+              <a href="{{ route('ubicaciones.edit', $ubicacion->id )}}" class="btn btn-success btn-sm">Editar</a>
+              </td>
+              <td>
+              <form method="POST" action="{{ route('ubicaciones.destroy', $ubicacion->id )}}">
+                @method('DELETE')
+                @csrf
+                <x-button class="btn btn-danger btn-sm">
+                        {{ __('Eliminar') }}
+                </x-button>
+              </form>
+              </td>
+              
+            </tr>
+          @empty
+            <p>No hay ubicaciones</p>
+          @endforelse
+          </tbody>
+        </table>
+      </div>
 </x-app-layout>

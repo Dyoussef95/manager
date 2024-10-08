@@ -18,7 +18,7 @@
                             name="email" 
                             :value="old('email')" 
                             placeholder="name@example.com" required/>
-                 <x-label for="email" :value="__('Usuario')" />
+                 <x-label for="email" :value="__('Email')" />
             </div>
 
             <!-- Password -->
@@ -45,7 +45,8 @@
             <x-button class="btn btn-primary w-100 py-2">
                     {{ __('Iniciar sesión') }}
             </x-button>
-            <p class="mt-5 mb-3 text-body-secondary">© eh! ideas 2024</p>
+            <p class="mt-5 mb-3 text-body-secondary"><a href="https://ehideas.com/">© eh! ideas 2024 https://ehideas.com</a>
+            </p>
         </form>
     </x-auth-card>
 </x-guest-layout>
