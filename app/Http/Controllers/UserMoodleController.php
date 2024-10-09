@@ -63,8 +63,8 @@ class UserMoodleController extends Controller
     {
        //dd($request);
        
-        $url="https://plataforma3.ehcampus.online/webservice/rest/server.php?";
-        $token="39fa8d55935732c910958c42e5a28ce8";
+        $url=env('MOODLE_URL');
+        $token=env('MOODLE_TOKEN');
         $function="core_user_create_users";
         $request->validate([
             'username' => ['required', 'string', 'max:255'],
@@ -141,8 +141,8 @@ class UserMoodleController extends Controller
     public function update(Request $request, $userMoodle)
     {
         
-        $url="https://plataforma3.ehcampus.online/webservice/rest/server.php?";
-        $token="39fa8d55935732c910958c42e5a28ce8";
+        $url=env('MOODLE_URL');
+        $token=env('MOODLE_TOKEN');
         $function="core_user_update_users";
         if(isset($request->password)){
             $response = Http::post($url.
@@ -194,8 +194,8 @@ class UserMoodleController extends Controller
      */
     public function destroy($userMoodle)
     {
-        $url="https://plataforma3.ehcampus.online/webservice/rest/server.php?";
-        $token="39fa8d55935732c910958c42e5a28ce8";
+        $url=env('MOODLE_URL');
+        $token=env('MOODLE_TOKEN');
         $function="core_user_delete_users";
         $response = Http::post($url.
             "wstoken=".$token.
@@ -208,8 +208,8 @@ class UserMoodleController extends Controller
 
     public function multiDestroy(Request $request)
     {
-        $url="https://plataforma3.ehcampus.online/webservice/rest/server.php?";
-        $token="39fa8d55935732c910958c42e5a28ce8";
+        $url=env('MOODLE_URL');
+        $token=env('MOODLE_TOKEN');
         $function="core_user_delete_users";
         $users=$request->all();
         foreach($users as $username => $iduser){
