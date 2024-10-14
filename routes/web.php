@@ -21,7 +21,7 @@ use App\Http\Controllers\UbicacionController;
 */
 
 Route::get('/', function () {
-    return redirect()->route('moodleusers.index');
+    return redirect()->route('login');
 })->name('index');
 
 Route::get('login', [AuthenticatedSessionController::class, 'create'])
