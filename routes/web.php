@@ -22,7 +22,15 @@ use App\Http\Controllers\UbicacionController;
 
 Route::get('/', function () {
     return redirect()->route('moodleusers.index');
-})->middleware(['auth'])->name('dashboard');
+})->name('index');
+
+Route::get('login', [AuthenticatedSessionController::class, 'create'])
+                ->name('login');
+
+Route::post('login', [AuthenticatedSessionController::class, 'store']);
+
+Route::get('logout', [AuthenticatedSessionController::class, 'destroy'])
+                ->name('logout');
 
 /*Route::get('/', [AuthenticatedSessionController::class, 'create'])
 ->name('login');
@@ -34,32 +42,32 @@ Route::get('/', function () {
 
 
 Route::get('/moodleusers', [UserMoodleController::class, 'index'])
-->middleware(['auth'])->name('moodleusers.index');
+->name('moodleusers.index');
 Route::get('/moodleusers/create', [UserMoodleController::class, 'create'])
-->middleware(['auth'])->name('moodleusers.create');
+->name('moodleusers.create');
 Route::get('/moodleusers/{moodleuser}/edit', [UserMoodleController::class, 'edit'])
-->middleware(['auth'])->name('moodleusers.edit');
+->name('moodleusers.edit');
 Route::get('/moodleusers/{moodleuser}/delete', [UserMoodleController::class, 'destroy'])
-->middleware(['auth'])->name('moodleusers.destroy');
+->name('moodleusers.destroy');
 Route::post('/moodleusers', [UserMoodleController::class, 'store'])
-->middleware(['auth'])->name('moodleusers.store');
+->name('moodleusers.store');
 Route::patch('/moodleusers/{moodleuser}', [UserMoodleController::class, 'update'])
-->middleware(['auth'])->name('moodleusers.update');
+->name('moodleusers.update');
 Route::post('/moodleusers/multidelete', [UserMoodleController::class, 'multiDestroy'])
-->middleware(['auth'])->name('moodleusers.multiDestroy');
+->name('moodleusers.multiDestroy');
 
 Route::get('users', [RegisteredUserController::class, 'index'])
-->middleware(['auth'])->name('users');
+->name('users');
 Route::get('register', [RegisteredUserController::class, 'create'])
-->middleware(['auth'])->name('register');
+->name('register');
 Route::post('register', [RegisteredUserController::class, 'store'])
-->middleware(['auth'])->name('users.store');
+->name('users.store');
 Route::get('users/{user}/edit', [RegisteredUserController::class, 'edit'])
-->middleware(['auth'])->name('users.edit');
+->name('users.edit');
 Route::delete('users/{user}', [RegisteredUserController::class, 'destroy'])
-->middleware(['auth'])->name('users.destroy');
+->name('users.destroy');
 Route::patch('users/{user}', [RegisteredUserController::class, 'update'])
-->middleware(['auth'])->name('users.update');
+->name('users.update');
 
 Route::resource('areas', AreaController::class);
 Route::resource('dependencias', DependenciaDepartamentoController::class);
@@ -69,6 +77,6 @@ Route::resource('ubicaciones', UbicacionController::class);
 
 Route::get('/dashboard', function () {
     return redirect()->route('moodleusers.index');
-})->middleware(['auth'])->name('dashboard');
+})->name('dashboard');
 
-require __DIR__.'/auth.php';
+//require __DIR__.'/auth.php';
