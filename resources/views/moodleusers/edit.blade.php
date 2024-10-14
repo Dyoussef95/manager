@@ -181,7 +181,7 @@
             <br>
             <div class="form-group">
                 <label for="">Ente / Organismo</label>
-                <select class="form-select" name="ente_organismo" form="form">
+                <select class="form-select" name="institution" form="form">
                     @if (isset($entes))
                         @foreach ($entes as $ente)
                             <option value="{{ $ente->name }}"
@@ -198,16 +198,16 @@
             <br>
             <div class="form-group">
                 <label for="">Dependencia / Departamento</label>
-                <select class="form-select" name="dependencia_departamento" form="form">
+                <select class="form-select" name="department" form="form">
                     @if (isset($dependencias))
                         @foreach ($dependencias as $dependencia)
                             <option value="{{ $dependencia->name }}"
-                            @if(isset($user->department) && $user->department==$ente->name)
+                            @if(isset($user->department) && $user->department==$dependencia->name)
 
                                 selected
 
                             @endif
-                            >{{ $ente->name }}</option>
+                            >{{ $dependencia->name }}</option>
                         @endforeach
                     @endif
                 </select>
@@ -236,7 +236,7 @@
                     @if (isset($ubicaciones))
                         @foreach ($ubicaciones as $ubicacion)
                             <option value="{{ $ubicacion->name }}"
-                            @if(isset($user->address) && $user->address==$area->name)
+                            @if(isset($user->address) && $user->address==$ubicacion->name)
 
                                 selected
 
